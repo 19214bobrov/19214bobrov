@@ -40,8 +40,9 @@ reverse' (x:xs) = append' (reverse xs) x
 
 --7
 length' :: [a] -> Integer
-length' [] = 0
-length' (x:xs) = length' xs + 1
+length' xs = helper 0 xs where
+                         helper n [] = n
+                         helper n (x:xs) = helper (n + 1) xs
 
 
 --8

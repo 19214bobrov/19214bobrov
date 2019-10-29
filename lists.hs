@@ -1,5 +1,5 @@
 --1
-get' :: [a] -> Int -> a
+get' :: [a] -> Integer -> a
 get' [] n = error "no such element in the list"
 get' (x:xs) 0 = x
 get' (x:xs) n = get' xs (n - 1)
@@ -34,11 +34,12 @@ init' (x:xs) = x : init' xs
 --6
 reverse' :: [a] -> [a]
 reverse' [] = []
-reverse' (x:xs) = reverse' xs ++ [x]
+reverse' (x:xs) = append' (reverse xs) x
+
 
 
 --7
-length' :: [a] -> Int
+length' :: [a] -> Integer
 length' [] = 0
 length' (x:xs) = length' xs + 1
 
@@ -46,29 +47,29 @@ length' (x:xs) = length' xs + 1
 --8
 append' :: [a] -> a -> [a]
 append' [] k = [k]
-append' (x:xs) k = x : xs ++ [k]
+append' (x:xs) k = x : append' xs k
 
 
---9
+--9?
 concat' :: [a] -> [a] -> [a]
 concat' x [] = x
-concat' x (s:sys) = concat' (x ++ [s]) sys
+concat' xs (y:ys) = concat' (append' xs y) ys
 
 
 --10 
-drop' :: Int -> [a] -> [a]
+drop' :: Integer -> [a] -> [a]
 drop' 0 xs = xs
 drop' n (x:xs) = drop' (n - 1) xs
 
 
 --11
-take' :: Int -> [a] -> [a]
+take' :: Integer -> [a] -> [a]
 take' 0 xs = []
 take' n (x:xs) = x : take' (n - 1) xs
 
 
 --12
-splitAt' :: Int -> [a] -> ([a],[a])
+splitAt' :: Integer -> [a] -> ([a],[a])
 splitAt' n xs = (take' (n - 1) xs, drop' (n - 1) xs)
 
 
@@ -93,7 +94,9 @@ filter' test (x:xs) = if test x then x : filter' test xs else filter' test xs
 --16
 map' :: (a -> b) -> [a] -> [b]
 map' f [] = []
-map' f (x:xs) = [f x] ++ map' f xs
+map' f (x:xs) = (f x) : map' f xs
+
+
 
 
 --17
@@ -101,15 +104,4 @@ zip' :: [a] -> [b] -> [(a,b)]
 zip' xs [] = []
 zip' [] ys = []
 zip' (x:xs) (y:ys) = (x,y) : zip' xs ys
-
-
-
-
-
-
-
-
-
-
-
  

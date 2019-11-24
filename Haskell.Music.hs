@@ -36,4 +36,5 @@ newSong :: User -> Song -> User
 newSong user song = ToUser (urName user) (urSongs user ++ [song]) (urAlbums user) (urGroups user)
 
 
+searchSongByName :: User -> String -> [Song]
 searchSongByName user name = [song | song <- (urSongs user), sgName song == name]
